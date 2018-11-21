@@ -29,6 +29,11 @@ console.log(id);
 const timeStamp = id.getTimeStamp(); 
 console.log(timeStamp);
 ```
+To validate and handle error while vaalidating the Id's, you may use a package with joi as: 
+
+```
+npm i joi-objectid
+```
 
 ## What is Fawn? 
 Fawn is library to store data in different tables with one request. It's based on the same techniques known as **Transaction** in MySql Database. In mongodb it's known as **Two-Phase commit**. 
