@@ -17,10 +17,10 @@ router.post('/', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    let schema = new Geners ( {
+    const schema = new Geners ( {
         name: req.body.name
     });
-    schema = await schema.save();
+    await schema.save();
     res.send(schema);
 
 });

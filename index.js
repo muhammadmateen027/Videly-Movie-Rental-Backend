@@ -1,5 +1,7 @@
 const showMsg = (msg) => { console.log(msg); }
 
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const debug = require('debug')('app:startup');
 const express = require('express');
 const geners = require('./routes/geners');

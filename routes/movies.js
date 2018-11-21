@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
     const gener = await Geners.findById(req.body.generId);
     if (!gener) return res.status(400).send('Invalid genre.');
 
-    let schema = new Movie ( {
+    const schema = new Movie ( {
         title: req.body.title,
         gener: {
             _id: gener._id,
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
         numberInStock: req.body.numberInStock,
         dailyRentalRate: req.body.dailyRentalRate
     });
-    schema = await schema.save();
+    await schema.save();
     res.send(schema);
 
 });

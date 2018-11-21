@@ -20,12 +20,12 @@ router.post('/', async (req, res) => {
     if (error)
         return res.status(400)
                     .send(error.details);
-    let schema = new Customers ({
+    const schema = new Customers ({
         isGold: req.body.isGold,
         name: req.body.name
     });
 
-    schema = await schema.save();
+    await schema.save();
 
     res.send(schema);
 });
