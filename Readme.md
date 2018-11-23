@@ -53,6 +53,6 @@ For more detail follow this link: [Fawn](https://github.com/e-oj/Fawn).
 git init 
 git add README.md 
 git commit -m "first commit" 
-git remote add origin https://github.com/mateenumt027/videly.git 
+git remote add origin https://github.com/muhammadmateen027/Videly-Movie-Rental-Backend.git 
 git push -u origin master 
 ```
