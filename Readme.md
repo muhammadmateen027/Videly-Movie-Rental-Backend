@@ -31,8 +31,9 @@ if (!validPassword)
     return res.status(400).send('Invalid email or password.');
 ```
 
-##Json Web Token
-A library to handle token which is being generated while signin process ets. 
+## JSON Web Token (jwt)
+
+A library to handle token which is being generated while signin process etc. [Click here for details](https://jwt.io). 
 ```
 npm i jsonwebtoken
 const token = jwt.sign({ _id: user._id, name: user.name }, config.get('jwtPrivateKey'));
