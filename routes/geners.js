@@ -1,4 +1,5 @@
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin')
 const { Geners, validate } = require('../models/gener')
 const express = require('express');
 const router = express.Router();
@@ -38,7 +39,7 @@ router.put(`/:id`, auth, async (req, res) => {
     res.status(200).send(gener);
 });
 
-router.delete(`/:id`, auth, async (req, res) => {
+router.delete(`/:id`, [auth, admin], async (req, res) => {
     // const error = req.params.id;
     // if (error.length === 0) return res.status(400).send(error.details[0].message);
 

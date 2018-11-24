@@ -3,7 +3,15 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const router = express.Router();
+const auth = require('../middleware/auth');
 
+// to Authorization and authenticate old users
+router.get('/me', auth, async (req, res) => {
+    const user = await User.findById(req.user._id).select('-password');
+    res.send(user);
+});
+
+// to add new user
 router.post('/', async (req, res) => {
     
     const { error } = validate(req.body);
