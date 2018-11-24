@@ -2,14 +2,23 @@ const showMsg = (msg) => { console.log(msg); }
 
 const debug = require('debug')('app:startup');
 const express = require('express');
+const config = require('config');
 const geners = require('./routes/geners');
 const customers = require('./routes/customers');
 const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
 const users = require('./routes/users');
+const auth = require('./routes/auth');
 const mongoose = require('mongoose');
 
 const app = express();
+
+if (!config.get('jwtPrivateKey')) {
+    console.log('FATAL ERROR: jwtPrivateKey is not defined.');
+    process.exit(1);
+}
+
+
 
 mongoose.connect('mongodb://localhost/videly', { useNewUrlParser: true })
     .then(() => console.log('Connected to MongoDB...'))
@@ -23,6 +32,7 @@ app.use('/api/customers', customers);
 app.use('/api/movies', movies);
 app.use('/api/rentals', rentals);
 app.use('/api/users', users);
+app.use('/api/auth', auth);
 debug('This is debugger attached');
 
 const port = process.env.PORT || 3000;

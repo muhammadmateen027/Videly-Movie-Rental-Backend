@@ -22,7 +22,44 @@ Creates a Joi object that validates password complexity. [Joi Password Complexit
 This library is just to handle passwords from simple shape to encrypted one.
 Lib to help you hash passwords. [node.bcrypt.js](https://www.npmjs.com/package/bcrypt).
 
+```
+$npm i bcrypt
 
+const bcrypt = require('bcrypt');
+const validPassword = await bcrypt.compare(req.body.password, user.password);
+if (!validPassword) 
+    return res.status(400).send('Invalid email or password.');
+```
+
+##Json Web Token (jwt)
+A library to handle token which is being generated while signin process ets. 
+```
+npm i jsonwebtoken
+const token = jwt.sign({ _id: user._id, name: user.name }, config.get('jwtPrivateKey'));
+```
+## Config
+- $ npm i config
+- Step1: create a folder and named as config
+- create 2 json files to store/get environment variables like: 
+
+1. default.json
+```
+{
+    "jwtPrivateKey": ""
+}
+```
+2. custom-environment-variables
+```
+{
+    "jwtPrivateKey": "videly_jwtPrivateKey"
+}
+```
+- Run command to store values like: export videly_jwtPrivateKey=AnyStringHere
+- To retrive result in application as: 
+```
+const config = require('config');
+config.get('jwtPrivateKey')
+```
 
 ## *Helping Node JS Commands*
 - npm init --yes

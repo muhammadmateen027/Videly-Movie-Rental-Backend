@@ -11,11 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.2",
+    "config": "^3.0.0",
     "debug": "^4.1.0",
     "express": "^4.16.4",
     "fawn": "^2.1.5",
     "joi": "^14.0.6",
     "joi-password-complexity": "^2.0.1",
+    "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.3.12"
   }
