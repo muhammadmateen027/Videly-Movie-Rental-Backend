@@ -1,6 +1,7 @@
 const { Movie, validate } = require('../models/movie')
 const { Geners } = require('../models/gener');
 const express = require('express');
+const auth = require('../middleware/auth')
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -14,7 +15,7 @@ router.get(`/:id`, async (req, res) => {
     res.send(movie);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -35,7 +36,7 @@ router.post('/', async (req, res) => {
 
 });
 
-router.put(`/:id`, async (req, res) => {
+router.put(`/:id`, auth, async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
@@ -59,7 +60,7 @@ router.put(`/:id`, async (req, res) => {
     res.status(200).send(movie);
 });
 
-router.delete(`/:id`, async (req, res) => {
+router.delete(`/:id`, auth, async (req, res) => {
     // const error = req.params.id;
     // if (error.length === 0) return res.status(400).send(error.details[0].message);
 
