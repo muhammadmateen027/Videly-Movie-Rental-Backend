@@ -49,7 +49,7 @@ const token = jwt.sign({ _id: user._id, name: user.name }, config.get('jwtPrivat
     "jwtPrivateKey": ""
 }
 ```
-2. custom-environment-variables
+2. custom-environment-variables.json
 ```
 {
     "jwtPrivateKey": "videly_jwtPrivateKey"
