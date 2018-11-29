@@ -93,6 +93,10 @@ const auth = require('../middleware/auth')
 router.post('/', auth, async (req, res) => {
 ```
 
+## express-async-errors
+To handle errors just install this library and import it. It'll handle all the errors for example, node module is running but with any reason DB connection has been lost , then it'll handle automatically and give a response. For more detail visit [express-async-errors](https://www.npmjs.com/package/express-async-errors). 
+If it will not work with any reason, you may use your own created middleware technique.
+
 ## *Helping Node JS Commands*
 - npm init --yes
 - npm i (install any package like: npm i mongoose)

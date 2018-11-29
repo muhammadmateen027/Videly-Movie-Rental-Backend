@@ -1,5 +1,5 @@
 const showMsg = (msg) => { console.log(msg); }
-
+require('express-async-errors');
 const debug = require('debug')('app:startup');
 const express = require('express');
 const config = require('config');

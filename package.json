@@ -14,6 +14,7 @@
     "config": "^3.0.0",
     "debug": "^4.1.0",
     "express": "^4.16.4",
+    "express-async-errors": "^3.1.1",
     "fawn": "^2.1.5",
     "joi": "^14.0.6",
     "joi-password-complexity": "^2.0.1",
