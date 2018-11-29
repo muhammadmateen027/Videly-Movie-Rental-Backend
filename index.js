@@ -10,6 +10,7 @@ const rentals = require('./routes/rentals');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const mongoose = require('mongoose');
+const error = require('./middleware/error')
 
 const app = express();
 
@@ -34,6 +35,9 @@ app.use('/api/rentals', rentals);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 debug('This is debugger attached');
+
+// catch error middleware function
+app.use(error); // passed only reference of function rather than calling function
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => { showMsg(`Listening to port ${port}`) });
