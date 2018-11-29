@@ -1,25 +1,23 @@
 const auth = require('../middleware/auth');
-const admin = require('../middleware/admin')
-const { Geners, validate } = require('../models/gener')
+const admin = require('../middleware/admin');
+const asyncMiddleware = require('../middleware/async');
+const { Geners, validate } = require('../models/gener');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-    try {
-        const movieGeners = await Geners.find().sort('title');
-        res.send(movieGeners);
-    } catch (ex){
-        next(ex);
-    }
-});
 
-router.get(`/:id`, async (req, res) => {
+router.get('/', asyncMiddleware(async (req, res, next) => {
+    const movieGeners = await Geners.find().sort('title');
+    res.send(movieGeners);
+}));
+
+router.get(`/:id`, asyncMiddleware(async (req, res) => {
     const gener = await Geners.findById(req.params.id);
     if (!gener) return res.status(404).send(`Gener with id = ${req.params.id} is not found`);
     res.send(gener);
-});
+}));
 
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, asyncMiddleware(async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -29,9 +27,9 @@ router.post('/', auth, async (req, res) => {
     await schema.save();
     res.send(schema);
 
-});
+}));
 
-router.put(`/:id`, auth, async (req, res) => {
+router.put(`/:id`, auth, asyncMiddleware(async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -41,9 +39,9 @@ router.put(`/:id`, auth, async (req, res) => {
     if (!gener) return res.status(404).send(`Requested ID = ${req.params.id} is not found.`);
     
     res.status(200).send(gener);
-});
+}));
 
-router.delete(`/:id`, [auth, admin], async (req, res) => {
+router.delete(`/:id`, [auth, admin], asyncMiddleware(async (req, res) => {
     // const error = req.params.id;
     // if (error.length === 0) return res.status(400).send(error.details[0].message);
 
@@ -51,7 +49,7 @@ router.delete(`/:id`, [auth, admin], async (req, res) => {
     if (!gener) return res.status(404).send('The gener with the given ID was not found.');
 
     res.status(200).send(gener);
-});
+}));
 
 
 module.exports = router;
