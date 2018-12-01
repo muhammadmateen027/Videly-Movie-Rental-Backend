@@ -16,9 +16,20 @@ const error = require('./middleware/error')
 
 const app = express();
 
-process.on('uncaughtException', (ex) => {
-    console.log('WE GOT AN UNCAUGHT EXCEPTION');
-    winston.error(ex.message, ex);
+// this one only works in Sync process rather than Async
+// process.on('uncaughtException', (ex) => {
+//     console.log('WE GOT AN UNCAUGHT EXCEPTION');
+//     winston.error(ex.message, ex);
+//     process.exit(1);
+// });
+
+winston.handleExceptions(new winston.transports.File ({ filename: 'uncaughtexceptions.log' }));
+
+process.on('unhandledRejection', (ex) => {
+    throw ex;
+    // console.log('WE GOT AN UNHANDLED REJECTION');
+    // winston.error(ex.message, ex);
+    // process.exit(1);
 });
 
 winston.add(winston.transports.File, { filename: 'logfile.log' });
@@ -27,7 +38,10 @@ winston.add(winston.transports.MongoDB, {
     level: 'info'
   });
 
-// throw new Error('Something failed during startup.');
+// throw new Error('Something failed during startup.'); // Sync error
+const p = Promise.reject(new Error('Something Failed miserably!')); // Async error
+p.then(() => console.log('Done.'));
+
 
 if (!config.get('jwtPrivateKey')) {
     console.log('FATAL ERROR: jwtPrivateKey is not defined.');
