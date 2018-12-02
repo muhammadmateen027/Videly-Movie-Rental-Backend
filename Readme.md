@@ -108,6 +108,19 @@ npm i winston-mongodb
     "winston-mongodb": "^3.0.0"
 ```
 
+## Jest
+For unint testing, here is used jest library to create mock test. for more info [Click here](https://jestjs.io/docs/en/getting-started).
+to install: 
+```
+npm i jest --save-dev
+```
+go to package.json and update it's script as: 
+```
+"scripts": {
+    "test": "jest --watchAll"
+  }
+```
+
 ## *Helping Node JS Commands*
 - npm init --yes
 - npm i (install any package like: npm i mongoose)
