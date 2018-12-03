@@ -2,7 +2,7 @@ const express = require('express');
 const winston = require('winston');
 const app = express();
 
-require('./startup/logging');
+require('./startup/logging')();
 require('./startup/routs')(app); // passed the reference of app
 require('./startup/db')();
 require('./startup/config')();

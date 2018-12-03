@@ -7,6 +7,20 @@ Here you can get help in creating and designing MongoDB database using NodeJs.
 
 **MongoDB on Windows**: To install MongoDB on Windows follow this link: [Install on Windows](https://treehouse.github.io/installation-guides/windows/mongo-windows.html).
 
+## How to set Environment variable and run? 
+On Mac: 
+```
+// for testing case
+export ENV_NODE=test node index.js 
+
+```
+on windows: 
+```
+// for testing case
+set ENV_NODE=test
+node index.js
+```
+
 ## What is Fawn? 
 Fawn is library to store data in different tables with one request. For example: 
 I'm going to insert a value A in table Movies and same time I wanna update a table Customers with Value B. If 1st table value is inserted and that time 2nd table were not updated with any means, then the value inserted in table one will be reverted. **Fawn is actually a promise to store data**. 
@@ -55,7 +69,8 @@ const token = jwt.sign({ _id: user._id, name: user.name }, config.get('jwtPrivat
     "jwtPrivateKey": "videly_jwtPrivateKey"
 }
 ```
-- Run command to store values like: export videly_jwtPrivateKey=AnyStringHere
+- Run command to store values on Mac: export videly_jwtPrivateKey=AnyStringHere
+- Run command to store values on Windows: set videly_jwtPrivateKey=AnyStringHere
 - To retrive result in application as: 
 ```
 const config = require('config');
@@ -110,14 +125,20 @@ npm i winston-mongodb
 
 ## Jest
 For unint testing, here is used jest library to create mock test. for more info [Click here](https://jestjs.io/docs/en/getting-started).
-to install: 
+
+To install: 
 ```
 npm i jest --save-dev
 ```
 go to package.json and update it's script as: 
 ```
+// for unit test
 "scripts": {
     "test": "jest --watchAll"
+  }
+ // for integration and unit test
+"scripts": {
+    "test": "jest --watchAll --verbose"
   }
 ```
 
