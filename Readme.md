@@ -1,7 +1,9 @@
 # Videly 
 ## A NodeJs Example
-This project is only for beginner to understand Express, MongoDB and Fawn.
+This project is fully controll the backend of Movies Rental Shop.
+This projects is build on by using lot of dependencies like Express, MongoDB and Fawn etc.
 Here you can get help in creating and designing MongoDB database using NodeJs. 
+There is a full guide, how you can get start in NodeJS.
 
 **MongoDB on Mac**: To install mongodb on Mac follow this link: [Install on Mac](https://treehouse.github.io/installation-guides/mac/mongo-mac.html).
 
@@ -122,6 +124,7 @@ npm i winston-mongodb
     "winston": "^2.4.0",
     "winston-mongodb": "^3.0.0"
 ```
+**Tesing Starts from here**
 
 ## Jest
 For unint testing, here is used jest library to create mock test. for more info [Click here](https://jestjs.io/docs/en/getting-started).
@@ -140,6 +143,19 @@ go to package.json and update it's script as:
 "scripts": {
     "test": "jest --watchAll --verbose"
   }
+```
+
+## SuperTest
+To install 
+```
+npm i supertest --save-dev
+```
+With superTest we can send http request to endpoint like a postman. We are running command with --save-de because we need it into Development server.
+In index.JS make some changes like this: 
+```
+const server = app.listen(port, () => { winston.info(`Listening to port ${port}`) });
+
+module.exports = server;
 ```
 
 ## *Helping Node JS Commands*
