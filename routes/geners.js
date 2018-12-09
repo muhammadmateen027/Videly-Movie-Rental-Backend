@@ -1,5 +1,6 @@
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
+const validateObjectId = require('../middleware/validateObjectId');
 const { Geners, validate } = require('../models/gener');
 const express = require('express');
 const router = express.Router();
@@ -10,7 +11,8 @@ router.get('/', async (req, res, next) => {
     res.send(movieGeners);
 });
 
-router.get(`/:id`, async (req, res) => {
+router.get(`/:id`, validateObjectId, async (req, res) => {
+
     const gener = await Geners.findById(req.params.id);
     if (!gener) return res.status(404).send(`Gener with id = ${req.params.id} is not found`);
     res.send(gener);
