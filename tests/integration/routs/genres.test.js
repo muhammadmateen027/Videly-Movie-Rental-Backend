@@ -1,13 +1,13 @@
 const request = require('supertest'); // gives a function
-const { Geners } = require('../../models/gener');
-const { User } = require('../../models/user');
+const { Geners } = require('../../../models/gener');
+const { User } = require('../../../models/user');
 
 let server;
 
 describe('/api/geners', () => {
     //we need to start and close the server after each integration test so we need to start and close before and after as well.
     // there is a function which is proovided by Jest
-    beforeEach( () => {server = require('../../index')} );
+    beforeEach( () => {server = require('../../../index')} );
     // to close
     afterEach( async () => {
         server.close();
@@ -48,55 +48,55 @@ describe('/api/geners', () => {
     });
 
     describe('POST /', () => {
+
+        // Define the happy Path, and then in each test, we change
+        // one parameter that clearly aligns with the name of the tes.
+
+        let token;
+        let name;
+        const exec = async () => {
+            return await request(server)
+            .post('/api/geners')
+            .set('x-auth-token', token)
+            .send({ name }); // if value and key is same then we can use one
+        }
+
+        beforeEach(() => {
+            token = new User().generateAuthToken();
+            name = 'geners1';
+        });
+
         it('shoud return 401 if client is not logged in', async () => {
-            const res = await request(server)
-                            .post('/api/geners')
-                            .send({ name: 'geners1' });
+            token = '';
+            const res = await exec();
+
             expect(res.status).toBe(401);
 
         });
 
         it('shoud return 400 if client is less than 5 Character', async () => {
-            const token = new User().generateAuthToken();
-
-            const res = await request(server)
-                            .post('/api/geners')
-                            .set('x-auth-token', token)
-                            .send({ name: '1234' });
+            name = '1234';
+            const res = await exec();
             expect(res.status).toBe(400); 
         });
 
         it('shoud return 400 if client name is more than 5 Character', async () => {
-            const token = new User().generateAuthToken();
-            const name = new Array(52).join('a');
+            name = new Array(52).join('a');
 
-            const res = await request(server)
-                            .post('/api/geners')
-                            .set('x-auth-token', token)
-                            .send({ name: name });
+            const res = await exec();
             expect(res.status).toBe(400); 
         });
 
         it('shoud save the geners if it is valid', async () => {
-            const token = new User().generateAuthToken();
-            const name = new Array(52).join('a');
 
-            const res = await request(server)
-                            .post('/api/geners')
-                            .set('x-auth-token', token)
-                            .send({ name: 'geners1' });
+            await exec();
             const gener = await Geners.find({ name: 'geners1'});
             expect(gener).not.toBeNull();
         });
 
         it('shoud return the geners if it is valid', async () => {
-            const token = new User().generateAuthToken();
-            const name = new Array(52).join('a');
 
-            const res = await request(server)
-                            .post('/api/geners')
-                            .set('x-auth-token', token)
-                            .send({ name: 'geners1' });
+            const res = await exec();
 
             expect(res.body).toHaveProperty('_id');
             expect(res.body).toHaveProperty('name', 'geners1');
