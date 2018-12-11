@@ -1,13 +1,14 @@
 const request = require('supertest'); // gives a function
 const { Geners } = require('../../../models/gener');
 const { User } = require('../../../models/user');
+const mongoose = require('mongoose');
 
 let server;
 
 describe('/api/geners', () => {
     //we need to start and close the server after each integration test so we need to start and close before and after as well.
     // there is a function which is proovided by Jest
-    beforeEach( () => {server = require('../../../index')} );
+    beforeEach( () => { server = require('../../../index') } );
     // to close
     afterEach( async () => {
         server.close();
@@ -42,6 +43,13 @@ describe('/api/geners', () => {
 
         it('should return 404 if invalid id is passed', async () => {
             const res = await request(server).get('/api/geners/1');
+            expect(res.status).toBe(404);
+            // expect(res.body).toHaveProperty('name', gener.name);
+        });
+
+        it('should return 404 if no geners with given ID', async () => {
+            const id = mongoose.Types.ObjectId();
+            const res = await request(server).get(`/api/geners/${id}`);
             expect(res.status).toBe(404);
             // expect(res.body).toHaveProperty('name', gener.name);
         });

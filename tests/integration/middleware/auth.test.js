@@ -1,8 +1,6 @@
 const request = require('supertest');
 const { User } = require('../../../models/user');
 const { Geners } = require('../../../models/gener');
-const auth = require('../../../middleware/auth');
-
 
 let server;
 
